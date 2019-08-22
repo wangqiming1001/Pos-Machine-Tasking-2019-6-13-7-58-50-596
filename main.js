@@ -43,7 +43,6 @@ function generateReceiptItem(codes){
     var productsInfo = [];
     array.forEach(function(item){
         var goodsInfo = fetchProduct(item.code);
-        console.log(goodsInfo);
         for(let k in goodsInfo){
             productsInfo.push({
                 name:goodsInfo[k].name,
@@ -64,9 +63,23 @@ function countTotalPrice(receoptItem){
 }
 
 function assemble(assembleInput){
-    
+   let array =  generateReceiptItem(assembleInput);
+   let totalMoney = countTotalPrice(array);
+   console.log(totalMoney);
+   let upper="Receipts\n--------------------\n";
+   let middle="";
+   let lower="--------------------\nPrice:"+totalMoney;
+   array.forEach(item => {
+        middle+=item.name+"\t"+item.price+"\t"+item.count+"\n";
+   });
+   let printReceipts = upper + middle + lower;
+   return printReceipts;
+  
 }
 
+function generateReceipts(productCodes){
+    let receipts = assemble(productCodes);
+    return receipts;
+}
 
-
-module.exports = {countProduts,fetchProduct,generateReceiptItem,countTotalPrice,assemble};
+module.exports = {countProduts,fetchProduct,generateReceiptItem,countTotalPrice,assemble,generateReceipts};

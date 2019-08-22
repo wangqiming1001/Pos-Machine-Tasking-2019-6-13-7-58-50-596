@@ -1,4 +1,4 @@
-const {countProduts,fetchProduct,generateReceiptItem,countTotalPrice,assemble} = require('../main');
+const {countProduts,fetchProduct,generateReceiptItem,countTotalPrice,assemble,generateReceipts} = require('../main');
 
 
 it ('should count produt', () => {
@@ -55,8 +55,20 @@ it ('should print receipt', () => {
     //when
     var receiptText = assemble(assembleInput);
     //then
-    console.log("receiptText",receiptText);
+    console.log(receiptText);
     expect(receiptText).toEqual(
-    "Receipts\n--------------------\nPepsi-Cola   2   5\nCoca Cola    1   3\n--------------------\nPrice:13"
+    "Receipts\n--------------------\nPepsi-Cola\t5\t2\nCoca Cola\t3\t1\n--------------------\nPrice:13"
+    );
+});
+
+it ('should generate receipts', () => {
+    //given
+    const productCodes = ['0003','0003','0001'];
+    //when
+    var receipts = generateReceipts(productCodes);
+    //then
+    console.log(receipts);
+    expect(receipts).toEqual(
+    "Receipts\n--------------------\nPepsi-Cola\t5\t2\nCoca Cola\t3\t1\n--------------------\nPrice:13"
     );
 });
